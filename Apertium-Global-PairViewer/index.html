@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="colorbrewer.js"></script>
+    <script type="text/javascript" src="colours.js"></script>
+    
+    <link rel="stylesheet" href="index.css"/>
+
+  </head>
+
+  <body></body>
+
+  <div onclick="openNav()" id="settings" class="greenButton">
+    <i class="fa fa-cog" aria-hidden="true"></i> Settings 
+  </div>
+
+  <div id="sidenav" class="sidenav eP">
+    <div class="filter">
+      <div onclick="toggleDropdown(this,'#dropdown');" class="eP greenButton">Filter By Repo <i class="fa fa-caret-right"></i></div>
+      <div id="dropdown" class="dropdown-content">
+        <a id="filterTrunk" class="dropdown-select" onclick="selectRepoFilter('Trunk')">Trunk</a>
+        <a id="filterStaging" class="dropdown-select" onclick="selectRepoFilter('Staging')">Staging</a>
+        <a id="filterNursery" class="dropdown-select" onclick="selectRepoFilter('Nursery')">Nursery</a>
+        <a id="filterIncubator" class="dropdown-select" onclick="selectRepoFilter('Incubator')">Incubator</a>
+      </div>
+    </div>
+    <div class="filter">
+      <div onclick="toggleDropdown(this,'#dirDropdown');" class="eP greenButton">Filter By Direction <i class="fa fa-caret-right"></i></div>
+      <div id="dirDropdown" class="dropdown-content">
+        <a id="dirBidirectional" class="dropdown-select" onclick="selectDirFilter('Bidirectional')">Bidirectional</a>
+        <a id="dirUnidirectional" class="dropdown-select" onclick="selectDirFilter('Unidirectional')">Unidirectional</a>
+        <a id="dirUnknown" class="dropdown-select" onclick="selectDirFilter('Unknown')">Unknown</a>
+      </div>
+    </div>
+    <div class="filter">
+      <div onclick="toggleDropdown(this,'#pointDropdown');" class="eP greenButton">Filter By Language <i class="fa fa-caret-right"></i></div>
+      <div id="pointDropdown" class="dropdown-content">
+        <i id="pointSearchIcon" class="fa fa-search"></i>
+        <input type="text" placeholder="Search.." id="pointSearch" onkeyup="filterSearchPoints()">
+        <div id="pointList"></div>
+      </div>
+    </div>
+    <div class="filter">
+      <div onclick="toggleDropdown(this,'#stemDropdown');" class="eP greenButton">Filter By Stem Count <i class="fa fa-caret-right"></i></div>
+      <div id="stemDropdown" class="dropdown-content">
+        <div id="stemDropdownContent">
+          <input id="stemFilterSlider" type="range" min="0" max="100000" value="0">
+          <input id="stemFilterCount" value="0"></input>
+        </div>
+      </div>
+    </div>
+    <div onclick="checkPoints()" id="disablePoints" class="greenButton eP"><input type="checkbox" class="checkbox" id="pointCheckbox" onclick="checkPoints()"></input> Unused Languages</div>
+    <div onclick="fullDepth()" id="fullDepth" class="greenButton eP"><input type="checkbox" class="checkbox" id="fullDepthCheckbox" onclick="fullDepth()"></input> Full Depth Filtering</div>
+    <div onclick="toggleShadows()" id="toggleShadows" class="greenButton eP"><input type="checkbox" class="checkbox" id="toggleShadowsCheckbox" onclick="toggleShadows()" checked></input> Shadows</div>
+    <div onclick="colorStem()" id="colorStem" class="greenButton eP"> Color By Stems</div>
+    <div onclick="unknownStem()" id="unknownStem" class="greenButton eP"><input type="checkbox" class="checkbox" id="unknownStemCheckbox" onclick="unknownStem()" checked></input> Unknown Stems</div>
+    <div onclick="toggleMapColour()" id="toggleMapColour" class="greenButton eP"> Toggle Map Colour </div>
+    <div class="greenButton resetFilter" onclick="resetFilters()">Reset to Defaults</div>
+  </div>
+  <script type="text/javascript" src="pairviewer.js"></script>
+</html>

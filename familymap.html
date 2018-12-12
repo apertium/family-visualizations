@@ -378,7 +378,7 @@
                         1: function () { return drawContributionsDonut(langInfoBox, diameter * 5 / 6, diameter * 3 / 4, 10, 130, "1.5em", "1.5em", "1.17em", true, true); },
                         2: function () { return drawPairGraph(langInfoBox, diameter * 5 / 6, diameter * 3 / 4, "1.75em", [25, 70], [10, 35], true); },
                         3: function () { return drawDevelopmentPlot(langInfoBox, diameter * 5 / 6, diameter * 3 / 4, {top: 20, right: 50, bottom: 60, left: 70}, 5, 6, "2em", "1em", 40, 80, true, true, true); },
-                        4: function () { alert("Coming soon!"); }
+                        4: function () { return drawGlobe(langInfoBox, diameter * 5 / 6, diameter * 3 / 4); },
                     };
 
                     function drawChartPreviews() {
@@ -407,10 +407,11 @@
 
                         drawContributionsDonut(d3.select(chartPreviews[0][0]), width - 15, height - 15, 10, 65, "1em", ".9em", ".85em");
                         drawPairGraph(d3.select(chartPreviews[0][1]), width - 15, height - 15, "1em", [5, 30], [5, 15]);
-                        drawDevelopmentPlot(d3.select(chartPreviews[0][2]), width - 15, height - 15, {top: 30, right: 40, bottom: 40, left: 60}, 3, 5, "1.5em", ".6em", 150, 40);
-
+                        drawDevelopmentPlot(d3.select(chartPreviews[0][2]), width - 15, height - 15, {top: 30, right: 40, bottom: 40, left: 60}, 3, 5, "1.5em", ".6em", 150, 40);            
+                        drawGlobe(d3.select(chartPreviews[0][3]), width - 15, height - 15, 0);
                         return chartPreviews;
                     }
+                
 
                     function drawNavigationButtons() {
                         var rightButton = langInfoBox.append("span")
@@ -1035,6 +1036,24 @@
                 });
             }
 
+
+            
+            function drawGlobe(container, width, height, transition) {
+
+                var globe = container.append("embed")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("src", "Apertium-Global-PairViewer/")
+                    .style("opacity", transition ? 0 : 1);
+
+                if(transition)
+                    globe.transition()
+                        .style("opacity", 1);
+
+                return globe;
+            }
+
+    
             /* var diameter = 960,
                 radius = diameter / 2,
                 innerRadius = radius - 120;
